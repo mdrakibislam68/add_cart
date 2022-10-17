@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import uuid from "react-uuid";
-import useProducts from "../../hooks/useProducts";
+import { GlobalContext } from "../../context";
 
-const Product = ({ data }) => {
-  const [product, setProduct] = useProducts();
-  // console.log(hooks);
+const Product = ({ data, productIndex }) => {
   const [toggle, setToggle] = useState(true);
-  // const [selected, setSelected] = useState([""]);
+  const { setCard, cards } = useContext(GlobalContext);
 
-  // const data = props.data;
-  // console.log(data);
-
-  const handleToggle = (data) => {
-    // console.log(product);
-    setProduct([...product, data]);
-
-    // setToggle(!toggle);
-    // setSelected(data.id);
+  const onSelected = (id) => {
+    // console.log(id);
+    const isAdded = cards.find((Product) => Product.id === id);
+    // console.log(isAdded);
+    // setToggle(false);
+    if (isAdded) {
+      alert("Alrady");
+      setToggle(false);
+    } else {
+      const setProductId = [...cards, id];
+      setCard(setProductId);
+    }
   };
   return (
     <div className="w-64 border-2 p-3" key={uuid()}>
@@ -30,13 +31,13 @@ const Product = ({ data }) => {
           <option>Medium</option>
           <option>Large</option>
         </select>
+
         <button
           className="p-2 border-2"
-          onClick={() => {
-            handleToggle(data);
-          }}
+          onClick={() => onSelected(productIndex)}
         >
-          {toggle ? "Add to chart" : " Added"}
+          {/* {console.log(cards.filter((x) => x.id === productIndex))} */}
+          {cards.includes(productIndex) ? "Added" : " Add to chart"}
         </button>
       </div>
     </div>

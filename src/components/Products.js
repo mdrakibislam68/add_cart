@@ -1,30 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import CardStore from "../Card-store";
-// import useProducts from "../hooks/useProducts";
+import { GlobalContext } from "../context";
 import Product from "./product/Product";
-import { UserContext } from "./UserContext";
 
-const Products = () => {
-  const data = useContext(UserContext);
-  // const [selectedChart, setSelectedChart] = useState([]);
-  // const [user, setUser] = useState(null);
+const Products = (props) => {
+  const { products } = useContext(GlobalContext);
+  const [user, setUser] = useState(null);
 
-  // const onSelected = (props) => {
-  //   setSelectedChart((prevState) => [...prevState, props]);
-  // };
-
-  // setUser((prevState) => {
-  //   return { ...prevState, [selectedField]: selectedValue };
-  // });
+  // const cartClick = () => {};
+  // // setUser((prevState) => {
+  // //   return { ...prevState, [selectedField]: selectedValue };
+  // // });
 
   return (
     <div className="mt-5 flex gap-2">
-      {data.map((data, index) => (
-        <Product data={data} key={index} />
-        // onSelected={onSelected}
+      {products.map((data, index) => (
+        <Product data={data} key={index} productIndex={data.id} />
       ))}
-      {/* <CardStore selectedChart={selectedChart} /> */}
-
+      {/* <CardStore selectedChart={selectedChart} />; */}
+      {/* <button onClick={()=> cartClick}></button> */}
       {/* <UserContext.Provider value={selectedChart}></UserContext.Provider> */}
       {/* <section>
         {selectedChart &&
